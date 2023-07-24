@@ -1,0 +1,81 @@
+.product-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.product-image img {
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.product-info {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.product-info h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.product-info p {
+  font-size: 16px;
+}
+
+.product-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.add-to-cart-btn,
+.add-to-favorites-btn {
+  padding: 10px 20px;
+  background-color: #f76900;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-to-cart-btn:hover,
+.add-to-favorites-btn:hover {
+  background-color: #ff8800;
+}
+
+.loading-message {
+  font-size: 20px;
+  font-weight: 500;
+  color: #555;
+}
+
+.product-buttons .addToBag{
+  width: 170px;
+  height: 40px;
+  color: white;
+  background-color: #000;
+  border-radius: 15px;
+}
+
+.product-buttons .addToFavorites{
+  width: 170px;
+  height: 40px;
+  color: #000;
+  background-color: #fff;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
+@media (max-width: 767px) {
+.product-details {
+  padding-top: 170px;
+}
+
+}
+
+/* product-details */
