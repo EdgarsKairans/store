@@ -11,7 +11,7 @@ import ProductDetails from '../productDetails/ProductDetails';
 import FavoritesPage from '../pages/favoritesPage/FavoritesPage';
 import BagsPage from '../pages/bagsPage/BagsPage';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary';
-import Page404 from '../pages/404'; 
+import Page404 from '../pages/404';
 
 import './App.css';
 
@@ -27,8 +27,23 @@ function App() {
     setFavoritesList(savedFavoritesList);
   }, []);
 
-  console.log(bagsList);
-  console.log(favoritesList);
+  const handleRemoveFromBags = (productId) => {
+    const updatedBagsList = bagsList.filter((product) => product.id !== productId);
+    setBagsList(updatedBagsList);
+    localStorage.setItem('bagsList', JSON.stringify(updatedBagsList));
+  };
+
+  const handleAddToFavorites = (product) => {
+    setFavoritesList((prevFavorites) => [...prevFavorites, product]);
+    localStorage.setItem('favoritesList', JSON.stringify([...favoritesList, product]));
+  };
+
+  const handleRemoveFromFavorites = (productId) => {
+    const updatedFavoritesList = favoritesList.filter((product) => product.id !== productId);
+    setFavoritesList(updatedFavoritesList);
+    localStorage.setItem('favoritesList', JSON.stringify(updatedFavoritesList));
+  };
+
   return (
     <Router>
       <ErrorBoundary>
@@ -50,12 +65,27 @@ function App() {
                 setFavoritesList={setFavoritesList}
                 bagsList={bagsList}
                 setBagsList={setBagsList}
+                onAddToFavorites={handleAddToFavorites}
               />
             </ErrorBoundary>
           }
         />
-        <Route path="/favorites" element={<ErrorBoundary><FavoritesPage favoritesList={favoritesList}/></ErrorBoundary>} />
-        <Route path="/bags" element={<ErrorBoundary><BagsPage  bagsList={bagsList}/></ErrorBoundary>} />
+        <Route
+          path="/favorites"
+          element={
+            <ErrorBoundary>
+              <FavoritesPage favoritesList={favoritesList} onRemoveFromFavorites={handleRemoveFromFavorites} />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/bags"
+          element={
+            <ErrorBoundary>
+              <BagsPage bagsList={bagsList} onRemoveFromBags={handleRemoveFromBags} />
+            </ErrorBoundary>
+          }
+        />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </Router>
@@ -63,5 +93,3 @@ function App() {
 }
 
 export default App;
-
-
