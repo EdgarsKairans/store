@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import bags from '../../resources/img/bag.svg';
 import nikeLogo from '../../resources/img/nikeLogo.svg';
 import searchIcon from '../../resources/img/searchIcon.svg';
 import favorites from '../../resources/img/favorites.svg';
+
 import './appHeader.css';
 
 const AppHeader = ({ favoritesList, bagsList }) => {

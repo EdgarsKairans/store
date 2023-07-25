@@ -10,6 +10,8 @@ import Electronics from '../pages/Electronics';
 import ProductDetails from '../productDetails/ProductDetails';
 import FavoritesPage from '../pages/favoritesPage/FavoritesPage';
 import BagsPage from '../pages/bagsPage/BagsPage';
+import ErrorBoundary from '../errorBoundary/ErrorBoundary';
+import Page404 from '../pages/404'; 
 
 import './App.css';
 
@@ -29,32 +31,37 @@ function App() {
   console.log(favoritesList);
   return (
     <Router>
-      <AppHeader favoritesList={favoritesList} bagsList={bagsList} />
+      <ErrorBoundary>
+        <AppHeader favoritesList={favoritesList} bagsList={bagsList} />
+      </ErrorBoundary>
+      
       <Routes>
-        <Route path="/" element={<NewAndFeatured />} />
-        <Route path="/mens-clothing" element={<MensClothing />} />
-        <Route path="/womens-clothing" element={<WomensClothing />} />
-        <Route path="/jewelery" element={<Jewelery />} />
-        <Route path="/electronics" element={<Electronics />} />
+        <Route path="/" element={<ErrorBoundary><NewAndFeatured /></ErrorBoundary>} />
+        <Route path="/mens-clothing" element={<ErrorBoundary><MensClothing /></ErrorBoundary>} />
+        <Route path="/womens-clothing" element={<ErrorBoundary><WomensClothing /></ErrorBoundary>} />
+        <Route path="/jewelery" element={<ErrorBoundary><Jewelery /></ErrorBoundary>} />
+        <Route path="/electronics" element={<ErrorBoundary><Electronics /></ErrorBoundary>} />
         <Route
           path="/product/:id"
           element={
-            <ProductDetails
-              favoritesList={favoritesList}
-              setFavoritesList={setFavoritesList}
-              bagsList={bagsList}
-              setBagsList={setBagsList}
-            />
+            <ErrorBoundary>
+              <ProductDetails
+                favoritesList={favoritesList}
+                setFavoritesList={setFavoritesList}
+                bagsList={bagsList}
+                setBagsList={setBagsList}
+              />
+            </ErrorBoundary>
           }
         />
-        <Route path="/favorites" element={<FavoritesPage favoritesList={favoritesList}/>} />
-        <Route path="/bags" element={<BagsPage  bagsList={bagsList}/>} />
+        <Route path="/favorites" element={<ErrorBoundary><FavoritesPage favoritesList={favoritesList}/></ErrorBoundary>} />
+        <Route path="/bags" element={<ErrorBoundary><BagsPage  bagsList={bagsList}/></ErrorBoundary>} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
-
 
 
